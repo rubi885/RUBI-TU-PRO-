@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGCP - Constructora Inmobiliaria Peruana S.A.C.</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom Teal Theme Accents */
+        .bg-teal-primary { background-color: #064e3b; }
+        .bg-teal-dark { background-color: #022c22; }
+        .text-teal-primary { color: #064e3b; }
+        .border-teal-primary { border-color: #064e3b; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800 antialiased">
+
+    <!-- TOP BAR / HEADER -->
+    <header class="bg-gradient-to-r from-emerald-950 via-teal-900 to-slate-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand Logo & Company Title -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('cartera')">
+                    <div class="w-10 h-10 rounded-xl bg-teal-500 text-slate-950 flex items-center justify-center font-black text-xl shadow-md border border-teal-300">
+                        <i class="fa-solid fa-city"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-lg font-black tracking-tight text-white leading-none">SIGCP</span>
+                            <span class="bg-teal-500/20 text-teal-300 text-[10px] font-bold px-2 py-0.5 rounded border border-teal-500/30">v2.4</span>
+                        </div>
+                        <span class="text-[11px] font-medium text-emerald-300/90 tracking-wide block mt-0.5">Constructora Inmobiliaria Peruana S.A.C.</span>
+                    </div>
+                </div>
+
+                <!-- Active System Status & User Info -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-2 bg-emerald-900/60 px-3 py-1.5 rounded-full border border-emerald-700/50 text-xs text-emerald-200">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="font-semibold">5 Proyectos Activos</span>
+                    </div>
+
+                    <div class="flex items-center space-x-3 pl-3 border-l border-emerald-800">
+                        <div class="w-8 h-8 rounded-full bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center text-xs shadow">
+                            GG
+                        </div>
+                        <div class="hidden sm:block text-xs">
+                            <div class="font-bold text-white">Gerencia General</div>
+                            <div class="text-emerald-300 text-[10px]">Panel de Control Transversal</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <nav class="bg-white border-b border-slate-200 shadow-sm sticky top-16 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex space-x-1 overflow-x-auto py-2 scrollbar-none text-xs sm:text-sm font-semibold">
+                <button onclick="switchTab('cartera')" id="btn-tab-cartera" class="tab-btn px-4 py-2.5 rounded-lg whitespace-nowrap transition flex items-center space-x-2 bg-teal-900 text-white shadow-sm">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>1. Tablero de Cartera</span>
+                </button>
+                <button onclick="switchTab('ficha')" id="btn-tab-ficha" class="tab-btn px-4 py-2.5 rounded-lg whitespace-nowrap transition flex items-center space-x-2 text-slate-600 hover:bg-slate-100">
+                    <i class="fa-solid fa-file-contract"></i>
+                    <span>2. Ficha Única (P.20)</span>
+                </button>
+                <button onclick="switchTab('alertas')" id="btn-tab-alertas" class="tab-btn px-4 py-2.5 rounded-lg whitespace-nowrap transition flex items-center space-x-2 text-slate-600 hover:bg-slate-100">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>3. Detección de Incidencias</span>
+                </button>
+                <button onclick="switchTab('reunion')" id="btn-tab-reunion" class="tab-btn px-4 py-2.5 rounded-lg whitespace-nowrap transition flex items-center space-x-2 text-slate-600 hover:bg-slate-100">
+                    <i class="fa-solid fa-users-gear"></i>
+                    <span>4. Reunión Quincenal</span>
+                </button>
+                <button onclick="switchTab('matriz')" id="btn-tab-matriz" class="tab-btn px-4 py-2.5 rounded-lg whitespace-nowrap transition flex items-center space-x-2 text-slate-600 hover:bg-slate-100">
+                    <i class="fa-solid fa-sitemap"></i>
+                    <span>5. Matriz de Autoridad</span>
+                </button>
+                <button onclick="switchTab('flujo')" id="btn-tab-flujo" class="tab-btn px-4 py-2.5 rounded-lg whitespace-nowrap transition flex items-center space-x-2 text-slate-600 hover:bg-slate-100">
+                    <i class="fa-solid fa-diagram-project"></i>
+                    <span>6. Flujo Integrado (7 Pasos)</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+        <!-- ========================================== -->
+        <!-- TAB 1: TABLERO DE CARTERA (OVERVIEW)       -->
+        <!-- ========================================== -->
+        <section id="tab-cartera" class="space-y-6 animate-fade-in">
+            <!-- Hero Description Banner -->
+            <div class="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-2xl p-6 text-white shadow-md border border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div class="space-y-1 max-w-3xl">
+                    <span class="bg-emerald-500/20 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full border border-emerald-500/30 inline-block mb-1">
+                        Consolidado General de Proyectos
+                    </span>
+                    <h2 class="text-2xl font-black text-white">Sistema Integrado de Gestión y Control de Proyectos (SIGCP)</h2>
+                    <p class="text-slate-300 text-xs leading-relaxed">
+                        Visualización transversal que articula Gerencia General, Proyectos, Finanzas, Logística y RRHH. Permite comparar riesgos, prioridades de inversión y detectar desviaciones oportunamente.
+                    </p>
+                </div>
+                <div class="flex gap-2 w-full md:w-auto shrink-0">
+                    <button onclick="switchTab('ficha')" class="w-full md:w-auto bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs transition shadow flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-magnifying-glass font-bold"></i>
+                        <span>Analizar Proyecto 20</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- KPI Cards Overview -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div class="flex justify-between items-center text-slate-500 text-xs font-medium">
+                        <span>Total de Proyectos</span>
+                        <i class="fa-solid fa-building-user text-teal-700"></i>
+                    </div>
+                    <div class="my-2">
+                        <span class="text-3xl font-black text-slate-900">5</span>
+                    </div>
+                    <div class="text-[11px] text-slate-500">P.18 a P.22 en cartera</div>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-blue-200 shadow-sm flex flex-col justify-between bg-blue-50/20">
+                    <div class="flex justify-between items-center text-blue-700 text-xs font-semibold">
+                        <span>En Ejecución</span>
+                        <i class="fa-solid fa-helmet-safety text-blue-600"></i>
+                    </div>
+                    <div class="my-2">
+                        <span class="text-3xl font-black text-blue-700">3</span>
+                    </div>
+                    <div class="text-[11px] text-blue-600 font-medium">Proyectos 18, 19 y 20</div>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm flex flex-col justify-between bg-amber-50/20">
+                    <div class="flex justify-between items-center text-amber-800 text-xs font-semibold">
+                        <span>En Planificación</span>
+                        <i class="fa-solid fa-compass-drafting text-amber-600"></i>
+                    </div>
+                    <div class="my-2">
+                        <span class="text-3xl font-black text-amber-700">2</span>
+                    </div>
+                    <div class="text-[11px] text-amber-700 font-medium">Proyectos 21 y 22 (0%)</div>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-rose-300 shadow-sm flex flex-col justify-between bg-rose-50/30">
+                    <div class="flex justify-between items-center text-rose-700 text-xs font-bold">
+                        <span>Revisión Prioritaria</span>
+                        <i class="fa-solid fa-circle-exclamation text-rose-600 animate-pulse"></i>
+                    </div>
+                    <div class="my-2">
+                        <span class="text-3xl font-black text-rose-700">1</span>
+                    </div>
+                    <div class="text-[11px] text-rose-700 font-bold">Proyecto 20 (Descalce 3% vs 33%)</div>
+                </div>
+            </div>
+
+            <!-- TABLERO DE CARTERA (PORTFOLIO TABLE) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-5 border-b border-slate-200 flex flex-col sm:flex-row justify-between sm:items-center gap-3 bg-slate-50">
+                    <div>
+                        <h3 class="font-extrabold text-slate-900 text-base flex items-center">
+                            <i class="fa-solid fa-layer-group text-teal-800 mr-2"></i>
+                            Estado Consolidado de la Cartera de Proyectos
+                        </h3>
+                        <p class="text-xs text-slate-500">Comparativa técnica, comercial y de riesgo entre los 5 desarrollos inmobiliarios.</p>
+                    </div>
+                    <span class="text-xs bg-white px-3 py-1.5 rounded-lg border border-slate-300 font-semibold text-slate-600 shadow-sm">
+                        Última actualización: Hoy, 10:00 AM
+                    </span>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200 uppercase tracking-wider text-[11px]">
+                                <th class="p-4">Proyecto</th>
+                                <th class="p-4">Avance Obra (Físico)</th>
+                                <th class="p-4">Ventas (Comercial)</th>
+                                <th class="p-4">Estado Operativo</th>
+                                <th class="p-4">Evaluación de Riesgo / SIGCP</th>
+                                <th class="p-4 text-center">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+
+                            <!-- PROYECTO 18 -->
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-4 font-extrabold text-slate-900 flex items-center space-x-3">
+                                    <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-900 font-bold flex items-center justify-center text-xs">
+                                        P.18
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-bold text-slate-900">Proyecto 18</div>
+                                        <div class="text-[10px] text-slate-500">Residencial Multifamiliar</div>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="font-bold text-slate-800 w-8">60%</span>
+                                        <div class="w-28 bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                                            <div class="bg-teal-600 h-full rounded-full" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="font-bold text-slate-800 w-8">53%</span>
+                                        <div class="w-28 bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                                            <div class="bg-blue-600 h-full rounded-full" style="width: 53%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-100 text-blue-800">
+                                        En ejecución
+                                    </span>
+                                </td>
+                                <td class="p-4 text-slate-600 font-medium">
+                                    Verificación de consistencia entre avance (60%), cobros pendientes y saldo de obra por ejecutar.
+                                </td>
+                                <td class="p-4 text-center">
+                                    <button onclick="alert('Proyecto 18: 60% obra vs 53% ventas. Estado saludable en rango operativo.')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1 rounded-lg text-xs font-semibold">
+                                        Detalles
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- PROYECTO 19 -->
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-4 font-extrabold text-slate-900 flex items-center space-x-3">
+                                    <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-900 font-bold flex items-center justify-center text-xs">
+                                        P.19
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-bold text-slate-900">Proyecto 19</div>
+                                        <div class="text-[10px] text-slate-500">Condominio Urbano</div>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="font-bold text-slate-800 w-8">10%</span>
+                                        <div class="w-28 bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                                            <div class="bg-teal-600 h-full rounded-full" style="width: 10%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="font-bold text-slate-800 w-8">11%</span>
+                                        <div class="w-28 bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                                            <div class="bg-blue-600 h-full rounded-full" style="width: 11%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-100 text-blue-800">
+                                        En ejecución
+                                    </span>
+                                </td>
+                                <td class="p-4 text-slate-600 font-medium">
+                                    Fase inicial alineada entre avance físico y ritmo de preventa.
+                                </td>
+                                <td class="p-4 text-center">
+                                    <button onclick="alert('Proyecto 19: Avance controlado al 10%.')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1 rounded-lg text-xs font-semibold">
+                                        Detalles
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- PROYECTO 20 (DESTACADO SEGÚN CASO) -->
+                            <tr class="bg-amber-50/70 hover:bg-amber-100/60 transition border-l-4 border-amber-500">
+                                <td class="p-4 font-extrabold text-slate-900 flex items-center space-x-3">
+                                    <div class="w-8 h-8 rounded-lg bg-amber-500 text-slate-950 font-black flex items-center justify-center text-xs shadow-sm">
+                                        P.20
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-bold text-slate-900 flex items-center space-x-1.5">
+                                            <span>Proyecto 20</span>
+                                            <span class="bg-rose-600 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest">Alerta Alta</span>
+                                        </div>
+                                        <div class="text-[10px] text-amber-900 font-medium">Edificio Mixto Comercial</div>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="font-black text-rose-700 w-8">3%</span>
+                                        <div class="w-28 bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                                            <div class="bg-rose-600 h-full rounded-full" style="width: 3%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="font-extrabold text-emerald-700 w-8">33%</span>
+                                        <div class="w-28 bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                                            <div class="bg-emerald-600 h-full rounded-full" style="width: 33%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-200 text-amber-900">
+                                        Revisión Especial
+                                    </span>
+                                </td>
+                                <td class="p-4 text-amber-950 font-semibold leading-tight">
+                                    <strong>Descalce Físico-Comercial:</strong> Las ventas avanzaron al 33% mientras la obra registra sólo 3%. Activa evaluación de permisos, materiales y flujo de caja.
+                                </td>
+                                <td class="p-4 text-center">
+                                    <button onclick="switchTab('ficha')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-3 py-1.5 rounded-lg text-xs transition shadow-sm whitespace-nowrap">
+                                        Abrir Ficha Única <i class="fa-solid fa-arrow-right ml-1"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- PROYECTO 21 -->
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-4 font-extrabold text-slate-900 flex items-center space-x-3">
+                                    <div class="w-8 h-8 rounded-lg bg-slate-200 text-slate-700 font-bold flex items-center justify-center text-xs">
+                                        P.21
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-bold text-slate-900">Proyecto 21</div>
+                                        <div class="text-[10px] text-slate-500">Loteamiento Industrial</div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-slate-400 font-medium">0% (Por iniciar)</td>
+                                <td class="p-4 text-slate-400 font-medium">0% (Preventa)</td>
+                                <td class="p-4">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700">
+                                        Planificación
+                                    </span>
+                                </td>
+                                <td class="p-4 text-slate-500 font-medium">
+                                    Evaluación de permisos municipales, presupuesto base y estrategia de lanzamiento commercial.
+                                </td>
+                                <td class="p-4 text-center">
+                                    <button onclick="alert('Proyecto 21: En fase preliminar de planificación.')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1 rounded-lg text-xs font-semibold">
+                                        Detalles
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- PROYECTO 22 -->
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-4 font-extrabold text-slate-900 flex items-center space-x-3">
+                                    <div class="w-8 h-8 rounded-lg bg-slate-200 text-slate-700 font-bold flex items-center justify-center text-xs">
+                                        P.22
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-bold text-slate-900">Proyecto 22</div>
+                                        <div class="text-[10px] text-slate-500">Torre Corporativa</div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-slate-400 font-medium">0% (Por iniciar)</td>
+                                <td class="p-4 text-slate-400 font-medium">0% (Preventa)</td>
+                                <td class="p-4">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700">
+                                        Planificación
+                                    </span>
+                                </td>
+                                <td class="p-4 text-slate-500 font-medium">
+                                    Revisión de factibilidad de servicios y estructuración de financiamiento bancario.
+                                </td>
+                                <td class="p-4 text-center">
+                                    <button onclick="alert('Proyecto 22: En fase preliminar de estructuración.')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1 rounded-lg text-xs font-semibold">
+                                        Detalles
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- TAB 2: FICHA ÚNICA DEL PROYECTO 20         -->
+        <!-- ========================================== -->
+        <section id="tab-ficha" class="hidden space-y-6 animate-fade-in">
+            <!-- Header Banner for P.20 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between md:items-center gap-4">
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-amber-500 text-slate-950 text-xs font-black px-2.5 py-0.5 rounded">Proyecto 20</span>
+                        <span class="text-xs text-slate-500 font-semibold">Líder Integral de Proyecto: Ing. Carlos Mendoza</span>
+                    </div>
+                    <h2 class="text-2xl font-black text-slate-900 mt-1">Ficha Única de Seguimiento - Proyecto 20</h2>
+                    <p class="text-xs text-slate-500">Consolidado técnico, financiero, comercial y de abastecimiento para control de desviaciones.</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="switchTab('reunion')" class="bg-teal-900 hover:bg-teal-800 text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center space-x-1.5 shadow-sm">
+                        <i class="fa-solid fa-file-signature"></i>
+                        <span>Ir a Reunión Quincenal</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Project Metric Summary Strip -->
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                    <span class="text-slate-400 text-[10px] font-bold block uppercase">Avance Obra Real</span>
+                    <span class="text-xl font-black text-rose-600">3.0%</span>
+                    <span class="text-[10px] text-slate-500 block">Planificado: 12.0%</span>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                    <span class="text-slate-400 text-[10px] font-bold block uppercase">Ventas Logradas</span>
+                    <span class="text-xl font-black text-emerald-600">33.0%</span>
+                    <span class="text-[10px] text-slate-500 block">33 Departamentos</span>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                    <span class="text-slate-400 text-[10px] font-bold block uppercase">Presupuesto Ejecutado</span>
+                    <span class="text-xl font-black text-slate-900">S/ 1.2M</span>
+                    <span class="text-[10px] text-slate-500 block">De S/ 15.0M Total</span>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                    <span class="text-slate-400 text-[10px] font-bold block uppercase">Costo Comprometido</span>
+                    <span class="text-xl font-black text-amber-700">S/ 4.5M</span>
+                    <span class="text-[10px] text-slate-500 block">Órdenes emitidas</span>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm col-span-2 md:col-span-1">
+                    <span class="text-slate-400 text-[10px] font-bold block uppercase">Estado de Caja</span>
+                    <span class="text-xl font-black text-emerald-600">Positivo</span>
+                    <span class="text-[10px] text-slate-500 block">Cobros al día</span>
+                </div>
+            </div>
+
+            <!-- Area Update Tabs Simulation -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="border-b border-slate-200 bg-slate-50 p-3">
+                    <div class="flex space-x-2 overflow-x-auto text-xs font-bold">
+                        <button onclick="switchArea('operaciones')" id="btn-area-operaciones" class="area-tab bg-teal-900 text-white px-3 py-2 rounded-lg transition flex items-center space-x-1.5">
+                            <i class="fa-solid fa-helmet-safety text-amber-400"></i>
+                            <span>Operaciones</span>
+                        </button>
+                        <button onclick="switchArea('logistica')" id="btn-area-logistica" class="area-tab text-slate-600 hover:bg-slate-200 px-3 py-2 rounded-lg transition flex items-center space-x-1.5">
+                            <i class="fa-solid fa-truck-ramp-box"></i>
+                            <span>Logística</span>
+                        </button>
+                        <button onclick="switchArea('finanzas')" id="btn-area-finanzas" class="area-tab text-slate-600 hover:bg-slate-200 px-3 py-2 rounded-lg transition flex items-center space-x-1.5">
+                            <i class="fa-solid fa-calculator"></i>
+                            <span>Finanzas & Tesorería</span>
+                        </button>
+                        <button onclick="switchArea('comercial')" id="btn-area-comercial" class="area-tab text-slate-600 hover:bg-slate-200 px-3 py-2 rounded-lg transition flex items-center space-x-1.5">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <span>Comercial</span>
+                        </button>
+                        <button onclick="switchArea('rrhh')" id="btn-area-rrhh" class="area-tab text-slate-600 hover:bg-slate-200 px-3 py-2 rounded-lg transition flex items-center space-x-1.5">
+                            <i class="fa-solid fa-users"></i>
+                            <span>RR.HH.</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Area Content Sections -->
+                <div class="p-6">
+                    <!-- OPERACIONES -->
+                    <div id="area-operaciones" class="space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                            <div>
+                                <h4 class="font-extrabold text-slate-900 text-sm">Registro de Avance Físico de Obra</h4>
+                                <p class="text-xs text-slate-500">Supervisado por Gerencia de Proyectos y Operaciones.</p>
+                            </div>
+                            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">Desviación: -9.0% vs Plan</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                                <div class="font-bold text-slate-800">Hitos Principales de Obra</div>
+                                <ul class="space-y-1.5 text-slate-600">
+                                    <li class="flex justify-between items-center">
+                                        <span>• Excavación y cimentación</span>
+                                        <span class="text-emerald-600 font-bold"><i class="fa-solid fa-check mr-1"></i>Concluido (100%)</span>
+                                    </li>
+                                    <li class="flex justify-between items-center">
+                                        <span>• Calzaduras y muros pantalla</span>
+                                        <span class="text-amber-600 font-bold">En proceso (40%)</span>
+                                    </li>
+                                    <li class="flex justify-between items-center">
+                                        <span>• Estructuras de sótanos</span>
+                                        <span class="text-slate-400 font-bold">Pendiente (0%)</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                                <div class="font-bold text-slate-800">Causa Identificada del Retraso</div>
+                                <p class="text-slate-600 leading-relaxed">
+                                    Demora en la entrega de acero estructural y cemento por parte del proveedor asignado, lo que paralizó las cuadrillas de encofrado por 5 días.
+                                </p>
+                                <button onclick="simularActualizacionAvance()" class="w-full mt-2 bg-teal-900 hover:bg-teal-800 text-white font-bold py-2 rounded-lg transition shadow-sm">
+                                    Simular Reporte de Avance (+1%)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LOGÍSTICA -->
+                    <div id="area-logistica" class="hidden space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                            <div>
+                                <h4 class="font-extrabold text-slate-900 text-sm">Abastecimiento y Compras Críticas</h4>
+                                <p class="text-xs text-slate-500">Gestión de órdenes de compra, contratos de suministro y entregas en obra.</p>
+                            </div>
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-md">1 Pedido en Riesgo</span>
+                        </div>
+
+                        <div class="overflow-x-auto text-xs">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-100 text-slate-700 font-bold">
+                                        <th class="p-2.5">Insumo / Material</th>
+                                        <th class="p-2.5">Cantidad</th>
+                                        <th class="p-2.5">Proveedor</th>
+                                        <th class="p-2.5">Fecha Programada</th>
+                                        <th class="p-2.5">Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200">
+                                    <tr>
+                                        <td class="p-2.5 font-bold">Acero de construcción 5/8"</td>
+                                        <td class="p-2.5">25 Toneladas</td>
+                                        <td class="p-2.5">Aceros del Perú S.A.</td>
+                                        <td class="p-2.5">02/11/2026</td>
+                                        <td class="p-2.5 text-rose-600 font-bold"><i class="fa-solid fa-clock mr-1"></i>Retrasado (3 días)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2.5 font-bold">Concreto Premezclado f'c=210</td>
+                                        <td class="p-2.5">180 m3</td>
+                                        <td class="p-2.5">MixerPerú S.A.C.</td>
+                                        <td class="p-2.5">12/11/2026</td>
+                                        <td class="p-2.5 text-emerald-600 font-bold"><i class="fa-solid fa-check mr-1"></i>Confirmado</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- FINANZAS -->
+                    <div id="area-finanzas" class="hidden space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                            <div>
+                                <h4 class="font-extrabold text-slate-900 text-sm">Estado Económico y Proyección de Caja</h4>
+                                <p class="text-xs text-slate-500">Administración, Costos Reales y Tesorería.</p>
+                            </div>
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-md">Flujo Calzado</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                <div class="text-slate-500 font-semibold">Cobros por Ventas:</div>
+                                <div class="text-lg font-bold text-slate-900 mt-1">S/ 3,850,000</div>
+                                <div class="text-[10px] text-emerald-600">33 cuotas iniciales percibidas</div>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                <div class="text-slate-500 font-semibold">Pagos a Proveedores:</div>
+                                <div class="text-lg font-bold text-slate-900 mt-1">S/ 1,200,000</div>
+                                <div class="text-[10px] text-slate-500">Facturación al día</div>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                <div class="text-slate-500 font-semibold">Margen Operativo Est.:</div>
+                                <div class="text-lg font-bold text-emerald-600 mt-1">18.5%</div>
+                                <div class="text-[10px] text-slate-500">Dentro de la meta del proyecto</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COMERCIAL -->
+                    <div id="area-comercial" class="hidden space-y-3 text-xs">
+                        <h4 class="font-extrabold text-slate-900 text-sm">Desempeño de Ventas y Preventa</h4>
+                        <p class="text-slate-600">
+                            El proyecto registra <strong>33% de unidades vendidas</strong> (33 de 100 departamentos). La demanda comercial es fuerte, pero existe riesgo de reclamo si la obra no acelera el ritmo para cumplir con las fechas de entrega prometidas.
+                        </p>
+                    </div>
+
+                    <!-- RRHH -->
+                    <div id="area-rrhh" class="hidden space-y-3 text-xs">
+                        <h4 class="font-extrabold text-slate-900 text-sm">Asignación de Personal y Capacitación SIGCP</h4>
+                        <p class="text-slate-600">
+                            Residencia de obra cuenta con 1 Ingeniero Residente, 1 Maestro de Obra y 24 Operarios. Capacitación en llenado de Ficha Única completada al 100%.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- TAB 3: DETECCIÓN Y REGISTRO DE INCIDENCIAS -->
+        <!-- ========================================== -->
+        <section id="tab-alertas" class="hidden space-y-6 animate-fade-in">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <div class="border-b border-slate-200 pb-3 flex justify-between items-center">
+                    <div>
+                        <h3 class="font-extrabold text-slate-900 text-base flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation text-rose-600 mr-2"></i>
+                            Protocolo de Alertas e Incidentes
+                        </h3>
+                        <p class="text-xs text-slate-500">El sistema activa revisiones inmediatas ante desviaciones de plazo, costo, abastecimiento o seguridad.</p>
+                    </div>
+                    <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full">Protocolo Activo</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Form Log Incident -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3 text-xs">
+                        <h4 class="font-bold text-slate-900 text-sm border-b border-slate-200 pb-2">Registrar Incidencia / Desviación</h4>
+                        <form onsubmit="registrarIncidencia(event)" class="space-y-3">
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-1">Proyecto Afectado</label>
+                                <select id="inc-proyecto" class="w-full p-2 bg-white border border-slate-300 rounded-lg">
+                                    <option value="Proyecto 20">Proyecto 20 (Edificio Mixto)</option>
+                                    <option value="Proyecto 18">Proyecto 18</option>
+                                    <option value="Proyecto 19">Proyecto 19</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-1">Tipo de Desviación</label>
+                                <select id="inc-tipo" class="w-full p-2 bg-white border border-slate-300 rounded-lg">
+                                    <option value="Abastecimiento / Materiales">Abastecimiento / Materiales</option>
+                                    <option value="Desviación de Plazo">Desviación de Plazo</option>
+                                    <option value="Sobrecosto de Obra">Sobrecosto de Obra</option>
+                                    <option value="Seguridad / Legal">Seguridad / Escalamiento Legal</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-1">Descripción del Problema</label>
+                                <textarea id="inc-desc" rows="3" required class="w-full p-2 bg-white border border-slate-300 rounded-lg" placeholder="Ej: Retraso de 5 días en cimentación por desabastecimiento de fierro..."></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-1">Impacto Estimado</label>
+                                <input type="text" id="inc-impacto" required class="w-full p-2 bg-white border border-slate-300 rounded-lg" placeholder="Ej: Retraso de 5 días y posible sobrecosto de S/ 15,000">
+                            </div>
+
+                            <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 rounded-lg transition shadow-sm">
+                                Disparar Alerta de Incidencia
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Incidents Logged List -->
+                    <div class="lg:col-span-2 space-y-3">
+                        <h4 class="font-bold text-slate-900 text-sm">Historial de Alertas Registradas</h4>
+
+                        <div id="contenedor-incidencias" class="space-y-3">
+                            <!-- Incident Item Sample -->
+                            <div class="p-4 bg-rose-50/60 border border-rose-200 rounded-xl space-y-2 text-xs">
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="bg-rose-600 text-white font-extrabold px-2 py-0.5 rounded text-[10px]">Proyecto 20</span>
+                                        <strong class="text-rose-900 text-sm">Falta de Material Crítico (Acero)</strong>
+                                    </div>
+                                    <span class="bg-amber-100 text-amber-900 font-bold px-2.5 py-0.5 rounded-full text-[10px]">En Atención</span>
+                                </div>
+                                <p class="text-slate-700"><strong>Descripción:</strong> Proveedor incumplió fecha de entrega de acero para muros pantalla.</p>
+                                <p class="text-slate-600"><strong>Impacto:</strong> Retraso en el cronograma base y riesgo de paralización de cuadrilla.</p>
+                                <div class="pt-2 border-t border-rose-200/60 flex justify-between text-[10px] text-slate-500">
+                                    <span>Registrado por: Líder de Proyecto 20</span>
+                                    <span>Hace 2 horas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- TAB 4: REUNIÓN QUINCENAL Y ACCIONES      -->
+        <!-- ========================================== -->
+        <section id="tab-reunion" class="hidden space-y-6 animate-fade-in">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <div class="border-b border-slate-200 pb-3 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+                    <div>
+                        <h3 class="font-extrabold text-slate-900 text-base flex items-center">
+                            <i class="fa-solid fa-users-gear text-teal-800 mr-2"></i>
+                            Reunión Quincenal de Control & Compromisos Correctivos
+                        </h3>
+                        <p class="text-xs text-slate-500">Cada acuerdo queda registrado con responsable y fecha de cierre estricta.</p>
+                    </div>
+                    <button onclick="abrirModalAccion()" class="bg-teal-900 hover:bg-teal-800 text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow-sm flex items-center space-x-1.5 self-start sm:self-auto">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Nuevo Acuerdo / Acción Correctiva</span>
+                    </button>
+                </div>
+
+                <!-- Corrective Actions Table (From Image Workflow) -->
+                <div class="overflow-x-auto text-xs">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                                <th class="p-3">Proyecto</th>
+                                <th class="p-3">Acción Correctiva Definida</th>
+                                <th class="p-3">Área Responsable</th>
+                                <th class="p-3">Plazo de Cierre</th>
+                                <th class="p-3">Estado de Verificación</th>
+                                <th class="p-3 text-center">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-acciones" class="divide-y divide-slate-200">
+
+                            <!-- Action 1 -->
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Proyecto 20</td>
+                                <td class="p-3 font-semibold text-slate-800">Confirmar entrega urgente de material con proveedor alternativo</td>
+                                <td class="p-3">
+                                    <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold">Logística</span>
+                                </td>
+                                <td class="p-3 font-bold text-slate-700">3 Días</td>
+                                <td class="p-3">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">
+                                        <i class="fa-solid fa-spinner animate-spin mr-1"></i> En Proceso
+                                    </span>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <button onclick="marcarCompletado(this)" class="bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 rounded text-[10px] font-bold">
+                                        Cerrar
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- Action 2 -->
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Proyecto 20</td>
+                                <td class="p-3 font-semibold text-slate-800">Reprogramar secuencia de vaciado en turno extendido</td>
+                                <td class="p-3">
+                                    <span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold">Operaciones</span>
+                                </td>
+                                <td class="p-3 font-bold text-slate-700">5 Días</td>
+                                <td class="p-3">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">
+                                        <i class="fa-solid fa-spinner animate-spin mr-1"></i> En Proceso
+                                    </span>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <button onclick="marcarCompletado(this)" class="bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 rounded text-[10px] font-bold">
+                                        Cerrar
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- Action 3 -->
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Proyecto 20</td>
+                                <td class="p-3 font-semibold text-slate-800">Evaluar impacto económico y renegociar plazos con clientes</td>
+                                <td class="p-3">
+                                    <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">Finanzas / Comercial</span>
+                                </td>
+                                <td class="p-3 font-bold text-slate-700">5 Días</td>
+                                <td class="p-3">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                                        <i class="fa-solid fa-circle-check mr-1"></i> Cerrada / Verificada
+                                    </span>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <span class="text-slate-400 font-semibold">Completado</span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- TAB 5: MATRIZ DE AUTORIDAD Y DISEÑO       -->
+        <!-- ========================================== -->
+        <section id="tab-matriz" class="hidden space-y-6 animate-fade-in">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <div class="border-b border-slate-200 pb-3">
+                    <h3 class="font-extrabold text-slate-900 text-base flex items-center">
+                        <i class="fa-solid fa-sitemap text-teal-800 mr-2"></i>
+                        Matriz de Autoridad y Roles Operativos del SIGCP
+                    </h3>
+                    <p class="text-xs text-slate-500">Define responsabilidades sin crear nuevas gerencias ni reemplazar la estructura actual.</p>
+                </div>
+
+                <div class="overflow-x-auto text-xs">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-teal-900 text-white font-bold">
+                                <th class="p-3">Elemento del Sistema</th>
+                                <th class="p-3">Diseño Específico</th>
+                                <th class="p-3">Responsable Principal</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Matriz de Autoridad</td>
+                                <td class="p-3 text-slate-600">Precisar quién aprueba, ejecuta, valida y recibe información. Decisiones estratégicas en Directorio; ejecución delegada.</td>
+                                <td class="p-3 font-bold text-teal-800">Directorio y Gerencia General</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Líder Integral por Proyecto</td>
+                                <td class="p-3 text-slate-600">Consolida cronograma, presupuesto, avance, compras e incidencias. Representa la articulación transversal.</td>
+                                <td class="p-3 font-bold text-teal-800">Gerencia de Proyectos y Operaciones</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Ficha Única del Proyecto</td>
+                                <td class="p-3 text-slate-600">Registro de alcance, hitos, fechas base, avance real, costos comprometidos, ventas, cobros e incidencias.</td>
+                                <td class="p-3 font-bold text-teal-800">Líder del Proyecto con Áreas</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Tablero de Cartera</td>
+                                <td class="p-3 text-slate-600">Consolida la situación de los 5 proyectos para comparar riesgos y necesidades de recursos de la empresa.</td>
+                                <td class="p-3 font-bold text-teal-800">Gerencia General y Adm. y Finanzas</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Reunión Quincenal</td>
+                                <td class="p-3 text-slate-600">Análisis de causas de desviaciones, impactos, acuerdos, responsables y fechas de cierre en acta.</td>
+                                <td class="p-3 font-bold text-teal-800">Líderes de Proyecto y Jefaturas</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Protocolo de Alertas</td>
+                                <td class="p-3 text-slate-600">Activación ante desviación de plazo, costo, abastecimiento o calidad. Escalamiento inmediato de temas legales.</td>
+                                <td class="p-3 font-bold text-teal-800">Líder de Proyecto y Gerencia Competente</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- TAB 6: FLUJO INTEGRADO DE FUNCIONAMIENTO   -->
+        <!-- ========================================== -->
+        <section id="tab-flujo" class="hidden space-y-6 animate-fade-in">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-3">
+                    <h3 class="font-extrabold text-slate-900 text-base flex items-center">
+                        <i class="fa-solid fa-diagram-project text-teal-800 mr-2"></i>
+                        Secuencia Integrada de Funcionamiento (7 Pasos Clave)
+                    </h3>
+                    <p class="text-xs text-slate-500">Flujo operativo continuo diseñado para Constructora Inmobiliaria Peruana S.A.C.</p>
+                </div>
+
+                <!-- Step-by-Step Visual Cards (Corresponding to image_76c521.jpg) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+                    <!-- Step 1 -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2 relative">
+                        <div class="w-7 h-7 rounded-full bg-teal-900 text-amber-400 font-extrabold flex items-center justify-center text-xs shadow">
+                            1
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-xs">Ingreso al Sistema</h4>
+                        <p class="text-[11px] text-slate-600 leading-relaxed">
+                            Gerencia General y jefaturas visualizan el estado general consolidado de la cartera de proyectos en el panel de control.
+                        </p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2 relative">
+                        <div class="w-7 h-7 rounded-full bg-teal-900 text-amber-400 font-extrabold flex items-center justify-center text-xs shadow">
+                            2
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-xs">Selección del Proyecto</h4>
+                        <p class="text-[11px] text-slate-600 leading-relaxed">
+                            Se elige el proyecto específico a revisar (ejemplo: Proyecto 20 con alerta de 3% obra vs 33% ventas).
+                        </p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2 relative">
+                        <div class="w-7 h-7 rounded-full bg-teal-900 text-amber-400 font-extrabold flex items-center justify-center text-xs shadow">
+                            3
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-xs">Registro por Áreas</h4>
+                        <p class="text-[11px] text-slate-600 leading-relaxed">
+                            Operaciones, Logística, Finanzas, Contabilidad y Comercial actualizan la Ficha Única con datos reales de avance.
+                        </p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="p-4 bg-amber-50 border border-amber-300 rounded-xl space-y-2 relative">
+                        <div class="w-7 h-7 rounded-full bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center text-xs shadow">
+                            4
+                        </div>
+                        <h4 class="font-bold text-slate-950 text-xs">Detección de Desviaciones</h4>
+                        <p class="text-[11px] text-amber-900 leading-relaxed">
+                            El líder identifica problemas específicos (ej: falta de material) y dispara el protocolo de alerta.
+                        </p>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2 relative">
+                        <div class="w-7 h-7 rounded-full bg-teal-900 text-amber-400 font-extrabold flex items-center justify-center text-xs shadow">
+                            5
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-xs">Reunión de Control</h4>
+                        <p class="text-[11px] text-slate-600 leading-relaxed">
+                            Cada 15 días las áreas analizan las causas raíz y no solo los números, acordando soluciones concretas.
+                        </p>
+                    </div>
+
+                    <!-- Step 6 -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2 relative">
+                        <div class="w-7 h-7 rounded-full bg-teal-900 text-amber-400 font-extrabold flex items-center justify-center text-xs shadow">
+                            6
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-xs">Acciones Correctivas</h4>
+                        <p class="text-[11px] text-slate-600 leading-relaxed">
+                            Se asignan responsables directos y plazos de ejecución definidos en acta para solucionar la desviación.
+                        </p>
+                    </div>
+
+                    <!-- Step 7 -->
+                    <div class="p-4 bg-emerald-50 border border-emerald-300 rounded-xl space-y-2 relative lg:col-span-2">
+                        <div class="w-7 h-7 rounded-full bg-emerald-600 text-white font-extrabold flex items-center justify-center text-xs shadow">
+                            7
+                        </div>
+                        <h4 class="font-bold text-emerald-900 text-xs">Verificación y Cierre de Incidencia</h4>
+                        <p class="text-[11px] text-emerald-800 leading-relaxed">
+                            En la siguiente sesión se comprueba la recepción del material, la reprogramación de actividades y el impacto en caja para cerrar formalmente el caso.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL PARA NUEVA ACCIÓN CORRECTIVA -->
+    <div id="modal-accion" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 animate-fade-in">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <h3 class="font-extrabold text-slate-900 text-sm">Registrar Compromiso en Acta</h3>
+                <button onclick="cerrarModalAccion()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-base"></i>
+                </button>
+            </div>
+
+            <form onsubmit="guardarNuevaAccion(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Proyecto</label>
+                    <select id="modal-proy" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg">
+                        <option value="Proyecto 20">Proyecto 20</option>
+                        <option value="Proyecto 18">Proyecto 18</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Acción Correctiva Acordada</label>
+                    <input type="text" id="modal-desc" required class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg" placeholder="Ej: Confirmar fecha de despacho de acero con proveedor B">
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Área Responsable</label>
+                    <select id="modal-resp" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg">
+                        <option value="Logística">Logística</option>
+                        <option value="Operaciones">Operaciones</option>
+                        <option value="Finanzas">Finanzas</option>
+                        <option value="Comercial">Comercial</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Plazo de Cierre</label>
+                    <input type="text" id="modal-plazo" required class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg" placeholder="Ej: 3 Días / 15 Noviembre">
+                </div>
+
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="cerrarModalAccion()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-bold">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-teal-900 hover:bg-teal-800 text-white rounded-lg font-bold">Guardar Compromiso</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-1">
+            <p class="font-bold text-slate-300">SIGCP - Sistema Integrado de Gestión y Control de Proyectos &copy; 2026</p>
+            <p class="text-[11px] text-slate-500">Constructora Inmobiliaria Peruana S.A.C. - Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // TAB SWITCHER
+        function switchTab(tabId) {
+            const tabs = ['cartera', 'ficha', 'alertas', 'reunion', 'matriz', 'flujo'];
+            tabs.forEach(t => {
+                document.getElementById('tab-' + t).classList.add('hidden');
+                const btn = document.getElementById('btn-tab-' + t);
+                if (btn) {
+                    btn.className = "tab-btn px-4 py-2.5 rounded-lg whitespace-nowrap transition flex items-center space-x-2 text-slate-600 hover:bg-slate-100";
+                }
+            });
+
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('btn-tab-' + tabId);
+            if (activeBtn) {
+                activeBtn.className = "tab-btn px-4 py-2.5 rounded-lg whitespace-nowrap transition flex items-center space-x-2 bg-teal-900 text-white shadow-sm";
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // SWITCH AREA SUB-TABS IN FICHA ÚNICA
+        function switchArea(areaId) {
+            const areas = ['operaciones', 'logistica', 'finanzas', 'comercial', 'rrhh'];
+            areas.forEach(a => {
+                document.getElementById('area-' + a).classList.add('hidden');
+                const btn = document.getElementById('btn-area-' + a);
+                if (btn) {
+                    btn.className = "area-tab text-slate-600 hover:bg-slate-200 px-3 py-2 rounded-lg transition flex items-center space-x-1.5";
+                }
+            });
+
+            document.getElementById('area-' + areaId).classList.remove('hidden');
+            const activeBtn = document.getElementById('btn-area-' + areaId);
+            if (activeBtn) {
+                activeBtn.className = "area-tab bg-teal-900 text-white px-3 py-2 rounded-lg transition flex items-center space-x-1.5";
+            }
+        }
+
+        // SIMULATE PROGRESS UPDATE IN OPERACIONES
+        function simularActualizacionAvance() {
+            alert('¡Reporte de Avance registrado! Avance de Proyecto 20 actualizado de 3.0% a 4.0%. Ficha Única sincronizada.');
+        }
+
+        // REGISTER INCIDENT PROTOCOL
+        function registrarIncidencia(e) {
+            e.preventDefault();
+            const proy = document.getElementById('inc-proyecto').value;
+            const tipo = document.getElementById('inc-tipo').value;
+            const desc = document.getElementById('inc-desc').value;
+            const impacto = document.getElementById('inc-impacto').value;
+
+            const contenedor = document.getElementById('contenedor-incidencias');
+            const nuevo = document.createElement('div');
+            nuevo.className = "p-4 bg-rose-50/60 border border-rose-200 rounded-xl space-y-2 text-xs animate-fade-in";
+            nuevo.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-rose-600 text-white font-extrabold px-2 py-0.5 rounded text-[10px]">${proy}</span>
+                        <strong class="text-rose-900 text-sm">${tipo}</strong>
+                    </div>
+                    <span class="bg-amber-100 text-amber-900 font-bold px-2.5 py-0.5 rounded-full text-[10px]">En Atención</span>
+                </div>
+                <p class="text-slate-700"><strong>Descripción:</strong> ${desc}</p>
+                <p class="text-slate-600"><strong>Impacto:</strong> ${impacto}</p>
+                <div class="pt-2 border-t border-rose-200/60 flex justify-between text-[10px] text-slate-500">
+                    <span>Registrado recientemente</span>
+                    <span>Justo ahora</span>
+                </div>
+            `;
+            contenedor.prepend(nuevo);
+            document.getElementById('inc-desc').value = '';
+            document.getElementById('inc-impacto').value = '';
+            alert('Alerta de Incidencia disparada y registrada en el protocolo del SIGCP.');
+        }
+
+        // MODAL FUNCTIONS
+        function abrirModalAccion() {
+            document.getElementById('modal-accion').classList.remove('hidden');
+        }
+
+        function cerrarModalAccion() {
+            document.getElementById('modal-accion').classList.add('hidden');
+        }
+
+        function guardarNuevaAccion(e) {
+            e.preventDefault();
+            const proy = document.getElementById('modal-proy').value;
+            const desc = document.getElementById('modal-desc').value;
+            const resp = document.getElementById('modal-resp').value;
+            const plazo = document.getElementById('modal-plazo').value;
+
+            const tabla = document.getElementById('tabla-acciones');
+            const fila = document.createElement('tr');
+            fila.className = "hover:bg-slate-50 animate-fade-in";
+            fila.innerHTML = `
+                <td class="p-3 font-bold text-slate-900">${proy}</td>
+                <td class="p-3 font-semibold text-slate-800">${desc}</td>
+                <td class="p-3">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold">${resp}</span>
+                </td>
+                <td class="p-3 font-bold text-slate-700">${plazo}</td>
+                <td class="p-3">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">
+                        <i class="fa-solid fa-spinner animate-spin mr-1"></i> En Proceso
+                    </span>
+                </td>
+                <td class="p-3 text-center">
+                    <button onclick="marcarCompletado(this)" class="bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 rounded text-[10px] font-bold">
+                        Cerrar
+                    </button>
+                </td>
+            `;
+            tabla.prepend(fila);
+            cerrarModalAccion();
+            alert('Compromiso registrado exitosamente en el Acta Quincenal.');
+        }
+
+        function marcarCompletado(btn) {
+            const celdaEstado = btn.parentElement.previousElementSibling;
+            celdaEstado.innerHTML = `
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                    <i class="fa-solid fa-circle-check mr-1"></i> Cerrada / Verificada
+                </span>
+            `;
+            btn.parentElement.innerHTML = `<span class="text-slate-400 font-semibold">Completado</span>`;
+        }
+    </script>
+</body>
+</html>
